@@ -1,0 +1,13 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker version
+    - docker info
+    - docker build -t blacklabelops/alpine .
+
+test:
+  override:
+    - docker run blacklabelops/alpine bash -c "echo Hello World"

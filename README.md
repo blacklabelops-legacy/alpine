@@ -1,2 +1,1 @@
-# alpine
-Docker Base Image for Blacklabelops Images
+# Docker Base Image for Blacklabelops Images
