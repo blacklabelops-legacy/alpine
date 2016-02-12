@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
 RUN apk upgrade --update && \
