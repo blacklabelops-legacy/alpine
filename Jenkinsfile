@@ -15,7 +15,6 @@
  **/
 env.DockerImageName = 'blacklabelops/alpine'
 def dockerTags = ["latest","3.3"] as String[]
-def tagName = getDockerTagName()
 def dockerTestCommands =
   ["echo hello world",
    "ps -All",
