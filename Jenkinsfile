@@ -21,8 +21,7 @@ def dockerTestCommands =
    "uname -r",
    "whoami",
    "cat /etc/hosts",
-   "cat /etc/passwd",
-   "yum check-update" ] as String[]
+   "cat /etc/passwd"] as String[]
 node('docker') {
   checkout scm
 
