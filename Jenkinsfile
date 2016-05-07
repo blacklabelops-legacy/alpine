@@ -24,24 +24,34 @@ def dockerTestCommands =
    "cat /etc/passwd"] as String[]
 node('docker') {
   checkout scm
+  def branchName = getDockerBranchName()
 
-  stage 'Docker-Image'
+  stage 'Build Image'
   echo 'Building the base image'
-  sh 'docker build --no-cache -t $DockerImageName .'
+  buildImage('$DockerImageName','latest',branchname)
 
-  stage 'Testing the base image'
+  stage 'Test Image'
+  echo 'Testing the base image'
   for (int i=0;i < dockerTestCommands.length;i++) {
     sh 'docker run --rm $DockerImageName ' + dockerTestCommands[i]
   }
 }
 
-def getDockerTagName() {
+def buildImage(imageName, tagName, branchName) {
+  def branchSuffix = 'master'.equals(branchName) : '' ? '-' + branchName
+  def image = imageName + ':' + tagName + branchSuffix
+  echo 'Building: ' + image
+  sh 'docker build --no-cache -t ' + image
+}
+
+def getDockerBranchName() {
   def branchName = env.GIT_BRANCH
-  def tagName = ''
-  if (!tagname.contains('master')) {
-    tagName = ':' + branchName
+  echo 'Building on Branch: ' + branchName
+  def tagPostfix = ''
+  if (!branchName.contains('master')) {
+    tagPostfix = branchName
   }
-  return tagName
+  return tagPostfix
 }
 
 /**
