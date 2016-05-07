@@ -28,7 +28,7 @@ node('docker') {
 
   stage 'Build Image'
   echo 'Building the base image'
-  buildImage('$DockerImageName','latest',branchName)
+  buildImage(env.DockerImageName,'latest',branchName)
 
   stage 'Test Image'
   echo 'Testing the base image'
