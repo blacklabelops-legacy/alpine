@@ -38,7 +38,7 @@ node('docker') {
 }
 
 def buildImage(imageName, tagName, branchName) {
-  def branchSuffix = 'master'.equals(branchName) : '' ? '-' + branchName
+  def branchSuffix = 'master'.equals(branchName) ? '' : '-' + branchName
   def image = imageName + ':' + tagName + branchSuffix
   echo 'Building: ' + image
   sh 'docker build --no-cache -t ' + image
