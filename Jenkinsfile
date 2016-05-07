@@ -45,7 +45,7 @@ def buildImage(imageName, tagName, branchName) {
 }
 
 def getDockerBranchName() {
-  def branchName = '$BRANCH_NAME'
+  def branchName = env.JOB_NAME.replaceFirst('.+/', '')
   echo 'Building on Branch: ' + branchName
   def tagPostfix = ''
   if (branchName != null && !'master'.equals(branchName)) {
