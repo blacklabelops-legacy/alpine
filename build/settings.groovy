@@ -15,7 +15,6 @@ dockerTestCommands =
   "whoami",
   "cat /etc/hosts",
   "cat /etc/passwd"] as String[]
-dockerRepo
 dockerRepositories = [["docker.io","Dockerhub","DockerhubEmail"]] as String[][]
 
 return this;
