@@ -1,7 +1,5 @@
 # Docker Base Image for Blacklabelops Images
 
-> Release latest
-
 Alpine images are smaller than full distributions, e.g. CentOS. This is a base image with some tweaks based on the official alpine image on Dockerhub.
 
 * Includes updates
