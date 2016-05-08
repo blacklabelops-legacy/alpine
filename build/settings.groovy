@@ -15,7 +15,7 @@ dockerTestCommands =
   "whoami",
   "cat /etc/hosts",
   "cat /etc/passwd"] as String[]
-dockerRepositories = [["docker.io","Dockerhub","DockerhubEmail"]] as String[][]
+dockerRepositories = [["","Dockerhub","DockerhubEmail"]] as String[][]
 
 def getBranchName() {
   def branchName = env.JOB_NAME.replaceFirst('.+/', '')
