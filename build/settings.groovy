@@ -6,7 +6,7 @@
  * Build parameters, must be adjusted when forked!
  *
  **/
-env.DockerImageName = 'blacklabelops/alpine'
+dockerImageName = 'blacklabelops/alpine'
 dockerTags = ["latest","3.3"] as String[]
 dockerTestCommands =
  ["echo hello world",
@@ -15,5 +15,6 @@ dockerTestCommands =
   "whoami",
   "cat /etc/hosts",
   "cat /etc/passwd"] as String[]
+dockerRepositories = [["docker.io","Dockerhub","DockerhubEmail"] as String[]] as String[]
 
 return this;

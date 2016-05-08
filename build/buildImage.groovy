@@ -2,20 +2,20 @@
  * Jenkins 2.0 Buildfile
  **/
 
-def buildJobCI(dockerTags,dockerTestCommands) {
+def buildJobCI(dockerImageName,dockerTags,dockerTestCommands) {
   utils = load('build/buildUtils.groovy')
   def branchName = utils.getBranchName()
 
   stage 'Build Image'
   echo 'Building the image'
   for (int i=0;i < dockerTags.length;i++) {
-    buildImage(env.DockerImageName,dockerTags[i],branchName)
+    buildImage(dockerImageName,dockerTags[i],branchName)
   }
 
   stage 'Test Image'
   echo 'Testing the image'
   for (int i=0;i < dockerTags.length;i++) {
-    testImage(env.DockerImageName,dockerTags[i],branchName,dockerTestCommands)
+    testImage(dockerImageName,dockerTags[i],branchName,dockerTestCommands)
   }
 }
 
@@ -33,7 +33,5 @@ def buildImage(imageName, tagName, branchName) {
   echo 'Building: ' + image
   sh 'docker build --no-cache -t ' + image + ' .'
 }
-
-
 
 return this;
