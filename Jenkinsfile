@@ -27,13 +27,23 @@ node('docker') {
   def branchName = getDockerBranchName()
 
   stage 'Build Image'
-  echo 'Building the base image'
-  buildImage(env.DockerImageName,'latest',branchName)
+  echo 'Building the image'
+  for (int i=0;i < dockerTags.length;i++) {
+    buildImage(env.DockerImageName,dockerTags[i],branchName)
+  }
 
   stage 'Test Image'
-  echo 'Testing the base image'
+  echo 'Testing the image'
+  for (int i=0;i < dockerTags.length;i++) {
+    testImage(env.DockerImageName,dockerTags[i],branchName)
+  }
+}
+
+def testImage(imageName, tagName, branchName) {
+  def branchSuffix = branchName?.trim() ? '-' + branchName : ''
+  def image = imageName + ':' + tagName + branchSuffix
   for (int i=0;i < dockerTestCommands.length;i++) {
-    sh 'docker run --rm $DockerImageName ' + dockerTestCommands[i]
+    sh 'docker run --rm ' + image + ' ' + dockerTestCommands[i]
   }
 }
 
@@ -52,29 +62,4 @@ def getDockerBranchName() {
     tagPostfix = branchName
   }
   return tagPostfix
-}
-
-/**
- * Docker needs three parameters to work, I distributed those Credentials inside
- * two Jenkins-UsernamePassword Credentials.
- * Credentials 'Dockerhub' with Dockerhub username and password
- * Credentials 'DockerhubEmail' with the email inside the password field.
- **/
-def dockerHubLogin() {
-  echo 'Login to Dockerhub with Credentials Dockerhub and DockerhubEmail'
-  withCredentials([[$class: 'UsernamePasswordMultiBinding',
-    credentialsId: 'Dockerhub',
-    usernameVariable: 'USERNAME',
-    passwordVariable: 'PASSWORD']]) {
-    withCredentials([[$class: 'UsernamePasswordMultiBinding',
-      credentialsId: 'DockerhubEmail',
-      usernameVariable: 'DUMMY',
-      passwordVariable: 'EMAIL']]) {
-      sh 'docker login --email $EMAIL --username $USERNAME --password $PASSWORD'
-    }
-  }
-}
-
-def dockerPush(imageName, uptagName) {
-    sh 'docker push ' + imageName + ':' + uptagName + tagName
 }
