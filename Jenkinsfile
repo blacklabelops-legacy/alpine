@@ -25,5 +25,6 @@
 
 node('docker') {
     checkout scm
-    load './build/buildImage.groovy'
+    job = load './build/buildImage.groovy'
+    job.buildJobCI(dockerTags,dockerTestCommands)
 }

@@ -1,20 +1,21 @@
 
+def buildJobCI(dockerTags,dockerTestCommands) {
+  def branchName = getBranchName()
 
-def branchName = getBranchName()
+  stage 'Build Image'
+  echo 'Building the image'
+  for (int i=0;i < dockerTags.length;i++) {
+    buildImage(env.DockerImageName,dockerTags[i],branchName)
+  }
 
-stage 'Build Image'
-echo 'Building the image'
-for (int i=0;i < dockerTags.length;i++) {
-  buildImage(env.DockerImageName,dockerTags[i],branchName)
+  stage 'Test Image'
+  echo 'Testing the image'
+  for (int i=0;i < dockerTags.length;i++) {
+    testImage(env.DockerImageName,dockerTags[i],branchName,dockerTestCommands)
+  }
 }
 
-stage 'Test Image'
-echo 'Testing the image'
-for (int i=0;i < dockerTags.length;i++) {
-  testImage(env.DockerImageName,dockerTags[i],branchName)
-}
-
-def testImage(imageName, tagName, branchName) {
+def testImage(imageName, tagName, branchName,dockerCommands) {
   def branchSuffix = branchName?.trim() ? '-' + branchName : ''
   def image = imageName + ':' + tagName + branchSuffix
   for (int i=0;i < dockerTestCommands.length;i++) {
@@ -38,3 +39,5 @@ def getBranchName() {
   }
   return tagPostfix
 }
+
+return this;
