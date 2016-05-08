@@ -10,6 +10,19 @@
  * docker run -d -v /var/run/docker.sock:/var/run/docker.sock --link jenkins:jenkins -e "SWARM_CLIENT_LABELS=docker" blacklabelops/swarm-dockerhost
  **/
 
+ /**
+  * Build parameters, must be adjusted when forked!
+  **/
+ env.DockerImageName = 'blacklabelops/alpine'
+ def dockerTags = ["latest","3.3"] as String[]
+ dockerTestCommands =
+   ["echo hello world",
+    "ps -All",
+    "uname -r",
+    "whoami",
+    "cat /etc/hosts",
+    "cat /etc/passwd"] as String[]
+
 node('docker') {
     checkout scm
     load './build/buildImage.groovy'
