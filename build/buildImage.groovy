@@ -10,21 +10,19 @@ dockerTestCommands =
    "whoami",
    "cat /etc/hosts",
    "cat /etc/passwd"] as String[]
-node('docker') {
-  checkout scm
-  def branchName = getBranchName()
 
-  stage 'Build Image'
-  echo 'Building the image'
-  for (int i=0;i < dockerTags.length;i++) {
-    buildImage(env.DockerImageName,dockerTags[i],branchName)
-  }
+def branchName = getBranchName()
 
-  stage 'Test Image'
-  echo 'Testing the image'
-  for (int i=0;i < dockerTags.length;i++) {
-    testImage(env.DockerImageName,dockerTags[i],branchName)
-  }
+stage 'Build Image'
+echo 'Building the image'
+for (int i=0;i < dockerTags.length;i++) {
+  buildImage(env.DockerImageName,dockerTags[i],branchName)
+}
+
+stage 'Test Image'
+echo 'Testing the image'
+for (int i=0;i < dockerTags.length;i++) {
+  testImage(env.DockerImageName,dockerTags[i],branchName)
 }
 
 def testImage(imageName, tagName, branchName) {
