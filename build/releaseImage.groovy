@@ -40,8 +40,9 @@ def repositoryLogin(remoteRepository,credentialsAId,credentialsBId) {
 
 def dockerPush(imageName, tagName, branchName, remoteRepository) {
     def branchSuffix = branchName?.trim() ? '-' + branchName : ''
-    def image = imageName + ':' + tagName + branchSuffix
-    sh 'docker push ' + remoteRepository + "/" + image
+    def repositoyToken = remoteRepository?.trim() ? remoteRepository + '/' : ''
+    def image = remoteRepository + imageName + ':' + tagName + branchSuffix
+    sh 'docker push ' + image
 }
 
 return this;
