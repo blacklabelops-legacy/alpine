@@ -3,7 +3,7 @@
  **/
 
 def buildJobCI(dockerTags,dockerTestCommands) {
-  utils = load('buildUtils.groovy')
+  utils = load('build/buildUtils.groovy')
   def branchName = utils.getBranchName()
 
   stage 'Build Image'
