@@ -17,4 +17,14 @@ dockerTestCommands =
   "cat /etc/passwd"] as String[]
 dockerRepositories = [["docker.io","Dockerhub","DockerhubEmail"]] as String[][]
 
+def getBranchName() {
+  def branchName = env.JOB_NAME.replaceFirst('.+/', '')
+  echo 'Building on Branch: ' + branchName
+  def tagPostfix = ''
+  if (branchName != null && !'master'.equals(branchName)) {
+     tagPostfix = branchName
+  }
+  return tagPostfix
+}
+
 return this;

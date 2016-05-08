@@ -2,10 +2,7 @@
  * Jenkins 2.0 Buildfile
  **/
 
-def pushImages(dockerRepositories,dockerImageName,dockerTags) {
-  utils = load('build/buildUtils.groovy')
-  def branchName = utils.getBranchName()
-
+def pushImages(dockerRepositories,dockerImageName,dockerTags,branchName) {
   stage 'Repository-Login'
   repositoryLogin(dockerRepositories[0][0],dockerRepositories[0][1],dockerRepositories[0][2])
 

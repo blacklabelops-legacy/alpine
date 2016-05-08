@@ -2,10 +2,7 @@
  * Jenkins 2.0 Buildfile
  **/
 
-def buildJobCI(dockerImageName,dockerTags,dockerTestCommands) {
-  utils = load('build/buildUtils.groovy')
-  def branchName = utils.getBranchName()
-
+def buildJobCI(dockerImageName,dockerTags,dockerTestCommands,branchName) {
   stage 'Build Image'
   echo 'Building the image'
   for (int i=0;i < dockerTags.length;i++) {
