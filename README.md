@@ -15,3 +15,7 @@ $ docker build -t blacklabelops/alpine .
 ~~~~
 $ docker run -it --rm blacklabelops/alpine bash
 ~~~~
+
+# Support
+
+Leave a message and ask questions on Hipchat: [blacklabelops/hipchat](http://support.blacklabelops.com)
