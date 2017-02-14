@@ -14,7 +14,7 @@ dockerTestCommands =
   "whoami",
   "cat /etc/hosts",
   "cat /etc/passwd",
-  "tini",
+  "/sbin/tini",
   "su-exec"] as String[]
 dockerRepositories = [["","Dockerhub","DockerhubEmail"]] as String[][]
 dockerImages = ["alpine:3.4"] as String[]

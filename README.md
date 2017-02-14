@@ -61,7 +61,7 @@ More information: [krallin/tini](https://github.com/krallin/tini)
 Example:
 
 ~~~~
-ENTRYPOINT ["/usr/bin/tini","--","/yourpath/docker-entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini","--","/yourpath/docker-entrypoint.sh"]
 ~~~~
 
 > Will start your entrypoint under tini process management.
