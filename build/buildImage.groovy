@@ -39,7 +39,7 @@ def buildImage(imageName, tagName, branchName) {
   def branchSuffix = branchName?.trim() ? '-' + branchName : ''
   def image = imageName + ':' + tagName + branchSuffix
   echo 'Building image: ' + image
-  sh 'docker build --no-cache -t ' + image + ' .'
+  sh 'docker build --no-cache -t ' + image + ' --build-arg ALPINE_IMAGE_BUILD_DATE="' + new Date() + '" .'
 }
 
 return this;
